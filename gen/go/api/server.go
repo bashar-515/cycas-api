@@ -19,7 +19,7 @@ import (
 type ServerInterface interface {
 
 	// (GET /v1/things/{thingId})
-	GetV1ThingsThingId(w http.ResponseWriter, r *http.Request, thingId string)
+	GetThing(w http.ResponseWriter, r *http.Request, thingId string)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -31,8 +31,8 @@ type ServerInterfaceWrapper struct {
 
 type MiddlewareFunc func(http.Handler) http.Handler
 
-// GetV1ThingsThingId operation middleware
-func (siw *ServerInterfaceWrapper) GetV1ThingsThingId(w http.ResponseWriter, r *http.Request) {
+// GetThing operation middleware
+func (siw *ServerInterfaceWrapper) GetThing(w http.ResponseWriter, r *http.Request) {
 
 	var err error
 
@@ -46,7 +46,7 @@ func (siw *ServerInterfaceWrapper) GetV1ThingsThingId(w http.ResponseWriter, r *
 	}
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.GetV1ThingsThingId(w, r, thingId)
+		siw.Handler.GetThing(w, r, thingId)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -176,22 +176,22 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 		ErrorHandlerFunc:   options.ErrorHandlerFunc,
 	}
 
-	m.HandleFunc("GET "+options.BaseURL+"/v1/things/{thingId}", wrapper.GetV1ThingsThingId)
+	m.HandleFunc("GET "+options.BaseURL+"/v1/things/{thingId}", wrapper.GetThing)
 
 	return m
 }
 
-type GetV1ThingsThingIdRequestObject struct {
+type GetThingRequestObject struct {
 	ThingId string `json:"thingId"`
 }
 
-type GetV1ThingsThingIdResponseObject interface {
-	VisitGetV1ThingsThingIdResponse(w http.ResponseWriter) error
+type GetThingResponseObject interface {
+	VisitGetThingResponse(w http.ResponseWriter) error
 }
 
-type GetV1ThingsThingId200JSONResponse Thing
+type GetThing200JSONResponse Thing
 
-func (response GetV1ThingsThingId200JSONResponse) VisitGetV1ThingsThingIdResponse(w http.ResponseWriter) error {
+func (response GetThing200JSONResponse) VisitGetThingResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
 
@@ -202,7 +202,7 @@ func (response GetV1ThingsThingId200JSONResponse) VisitGetV1ThingsThingIdRespons
 type StrictServerInterface interface {
 
 	// (GET /v1/things/{thingId})
-	GetV1ThingsThingId(ctx context.Context, request GetV1ThingsThingIdRequestObject) (GetV1ThingsThingIdResponseObject, error)
+	GetThing(ctx context.Context, request GetThingRequestObject) (GetThingResponseObject, error)
 }
 
 type StrictHandlerFunc = strictnethttp.StrictHTTPHandlerFunc
@@ -234,25 +234,25 @@ type strictHandler struct {
 	options     StrictHTTPServerOptions
 }
 
-// GetV1ThingsThingId operation middleware
-func (sh *strictHandler) GetV1ThingsThingId(w http.ResponseWriter, r *http.Request, thingId string) {
-	var request GetV1ThingsThingIdRequestObject
+// GetThing operation middleware
+func (sh *strictHandler) GetThing(w http.ResponseWriter, r *http.Request, thingId string) {
+	var request GetThingRequestObject
 
 	request.ThingId = thingId
 
 	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.GetV1ThingsThingId(ctx, request.(GetV1ThingsThingIdRequestObject))
+		return sh.ssi.GetThing(ctx, request.(GetThingRequestObject))
 	}
 	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "GetV1ThingsThingId")
+		handler = middleware(handler, "GetThing")
 	}
 
 	response, err := handler(r.Context(), w, r, request)
 
 	if err != nil {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(GetV1ThingsThingIdResponseObject); ok {
-		if err := validResponse.VisitGetV1ThingsThingIdResponse(w); err != nil {
+	} else if validResponse, ok := response.(GetThingResponseObject); ok {
+		if err := validResponse.VisitGetThingResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {
