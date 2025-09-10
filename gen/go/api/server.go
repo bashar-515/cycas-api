@@ -15,12 +15,6 @@ import (
 	strictnethttp "github.com/oapi-codegen/runtime/strictmiddleware/nethttp"
 )
 
-// Thing defines model for Thing.
-type Thing struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
-}
-
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 
