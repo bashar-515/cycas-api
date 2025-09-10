@@ -22,7 +22,7 @@ type Thing struct {
 type ServerInterface interface {
 
 	// (GET /v1/things/{thingId})
-	GetThing(w http.ResponseWriter, r *http.Request, thingId string)
+	GetV1ThingsThingId(w http.ResponseWriter, r *http.Request, thingId string)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -34,8 +34,8 @@ type ServerInterfaceWrapper struct {
 
 type MiddlewareFunc func(http.Handler) http.Handler
 
-// GetThing operation middleware
-func (siw *ServerInterfaceWrapper) GetThing(w http.ResponseWriter, r *http.Request) {
+// GetV1ThingsThingId operation middleware
+func (siw *ServerInterfaceWrapper) GetV1ThingsThingId(w http.ResponseWriter, r *http.Request) {
 
 	var err error
 
@@ -49,7 +49,7 @@ func (siw *ServerInterfaceWrapper) GetThing(w http.ResponseWriter, r *http.Reque
 	}
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.GetThing(w, r, thingId)
+		siw.Handler.GetV1ThingsThingId(w, r, thingId)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -179,7 +179,7 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 		ErrorHandlerFunc:   options.ErrorHandlerFunc,
 	}
 
-	m.HandleFunc("GET "+options.BaseURL+"/v1/things/{thingId}", wrapper.GetThing)
+	m.HandleFunc("GET "+options.BaseURL+"/v1/things/{thingId}", wrapper.GetV1ThingsThingId)
 
 	return m
 }

@@ -10,8 +10,6 @@ servers:
 paths:
   /v1/things/{thingId}:
     get:
-      operationId: GetThing
-
       parameters:
         - name: thingId
           in: path
