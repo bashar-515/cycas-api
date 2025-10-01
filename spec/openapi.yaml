@@ -8,30 +8,50 @@ servers:
   - url: http://localhost:8080
 
 paths:
-  /v1/things/{thingId}:
-    get:
-      parameters:
-        - name: thingId
-          in: path
-          required: true
-          schema:
-            type: string
+  /v1/categories:
+    post:
+      operationId: createCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
 
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Category created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Thing"
+                type: object
+                required:
+                  - name
+                  - id
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+
+        "409":
+          description: Category with name already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
 components:
   schemas:
-    Thing:
+    ErrorResponse:
       type: object
-      required: [id, name]
+      required:
+        - error
       properties:
-        id:
-          type: string
-        name:
+        error:
           type: string

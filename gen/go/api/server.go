@@ -11,15 +11,14 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/oapi-codegen/runtime"
 	strictnethttp "github.com/oapi-codegen/runtime/strictmiddleware/nethttp"
 )
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 
-	// (GET /v1/things/{thingId})
-	GetV1ThingsThingId(w http.ResponseWriter, r *http.Request, thingId string)
+	// (POST /v1/categories)
+	CreateCategory(w http.ResponseWriter, r *http.Request)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -31,22 +30,11 @@ type ServerInterfaceWrapper struct {
 
 type MiddlewareFunc func(http.Handler) http.Handler
 
-// GetV1ThingsThingId operation middleware
-func (siw *ServerInterfaceWrapper) GetV1ThingsThingId(w http.ResponseWriter, r *http.Request) {
-
-	var err error
-
-	// ------------- Path parameter "thingId" -------------
-	var thingId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "thingId", r.PathValue("thingId"), &thingId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "thingId", Err: err})
-		return
-	}
+// CreateCategory operation middleware
+func (siw *ServerInterfaceWrapper) CreateCategory(w http.ResponseWriter, r *http.Request) {
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.GetV1ThingsThingId(w, r, thingId)
+		siw.Handler.CreateCategory(w, r)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -176,24 +164,36 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 		ErrorHandlerFunc:   options.ErrorHandlerFunc,
 	}
 
-	m.HandleFunc("GET "+options.BaseURL+"/v1/things/{thingId}", wrapper.GetV1ThingsThingId)
+	m.HandleFunc("POST "+options.BaseURL+"/v1/categories", wrapper.CreateCategory)
 
 	return m
 }
 
-type GetV1ThingsThingIdRequestObject struct {
-	ThingId string `json:"thingId"`
+type CreateCategoryRequestObject struct {
+	Body *CreateCategoryJSONRequestBody
 }
 
-type GetV1ThingsThingIdResponseObject interface {
-	VisitGetV1ThingsThingIdResponse(w http.ResponseWriter) error
+type CreateCategoryResponseObject interface {
+	VisitCreateCategoryResponse(w http.ResponseWriter) error
 }
 
-type GetV1ThingsThingId200JSONResponse Thing
+type CreateCategory201JSONResponse struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
 
-func (response GetV1ThingsThingId200JSONResponse) VisitGetV1ThingsThingIdResponse(w http.ResponseWriter) error {
+func (response CreateCategory201JSONResponse) VisitCreateCategoryResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
+	w.WriteHeader(201)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateCategory409JSONResponse ErrorResponse
+
+func (response CreateCategory409JSONResponse) VisitCreateCategoryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(409)
 
 	return json.NewEncoder(w).Encode(response)
 }
@@ -201,8 +201,8 @@ func (response GetV1ThingsThingId200JSONResponse) VisitGetV1ThingsThingIdRespons
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
 
-	// (GET /v1/things/{thingId})
-	GetV1ThingsThingId(ctx context.Context, request GetV1ThingsThingIdRequestObject) (GetV1ThingsThingIdResponseObject, error)
+	// (POST /v1/categories)
+	CreateCategory(ctx context.Context, request CreateCategoryRequestObject) (CreateCategoryResponseObject, error)
 }
 
 type StrictHandlerFunc = strictnethttp.StrictHTTPHandlerFunc
@@ -234,25 +234,30 @@ type strictHandler struct {
 	options     StrictHTTPServerOptions
 }
 
-// GetV1ThingsThingId operation middleware
-func (sh *strictHandler) GetV1ThingsThingId(w http.ResponseWriter, r *http.Request, thingId string) {
-	var request GetV1ThingsThingIdRequestObject
+// CreateCategory operation middleware
+func (sh *strictHandler) CreateCategory(w http.ResponseWriter, r *http.Request) {
+	var request CreateCategoryRequestObject
 
-	request.ThingId = thingId
+	var body CreateCategoryJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
 
 	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.GetV1ThingsThingId(ctx, request.(GetV1ThingsThingIdRequestObject))
+		return sh.ssi.CreateCategory(ctx, request.(CreateCategoryRequestObject))
 	}
 	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "GetV1ThingsThingId")
+		handler = middleware(handler, "CreateCategory")
 	}
 
 	response, err := handler(r.Context(), w, r, request)
 
 	if err != nil {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(GetV1ThingsThingIdResponseObject); ok {
-		if err := validResponse.VisitGetV1ThingsThingIdResponse(w); err != nil {
+	} else if validResponse, ok := response.(CreateCategoryResponseObject); ok {
+		if err := validResponse.VisitCreateCategoryResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {
