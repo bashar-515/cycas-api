@@ -17,6 +17,9 @@ paths:
           application/json:
             schema:
               type: string
+              minLength: 4
+              maxLength: 16
+              pattern: "^[a-z]{4,16}$"
 
       responses:
         "201":
