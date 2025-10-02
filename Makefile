@@ -2,7 +2,7 @@
 
 gen: gen-go
 
-gen-go: gen-go-models gen-go-server
+gen-go: gen-go-models gen-go-server gen-go-spec
 
 gen-go-models: setup-go
 	go tool oapi-codegen -config config/go-models-cfg.yaml spec/openapi.yaml && \
@@ -10,6 +10,10 @@ gen-go-models: setup-go
 
 gen-go-server: setup-go
 	go tool oapi-codegen -config config/go-server-cfg.yaml spec/openapi.yaml && \
+		go mod tidy
+
+gen-go-spec: setup-go
+	go tool oapi-codegen -config config/go-spec-cfg.yaml spec/openapi.yaml && \
 		go mod tidy
 
 setup-go:
