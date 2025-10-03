@@ -4,7 +4,9 @@
 package api
 
 // CreateCategoryJSONBody defines parameters for CreateCategory.
-type CreateCategoryJSONBody = string
+type CreateCategoryJSONBody struct {
+	Name string `json:"name"`
+}
 
 // CreateCategoryJSONRequestBody defines body for CreateCategory for application/json ContentType.
-type CreateCategoryJSONRequestBody = CreateCategoryJSONBody
+type CreateCategoryJSONRequestBody CreateCategoryJSONBody
