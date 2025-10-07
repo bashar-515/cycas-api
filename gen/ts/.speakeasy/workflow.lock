@@ -2,19 +2,20 @@ speakeasyVersion: 1.635.3
 sources:
     Cycas API:
         sourceNamespace: cycas-api
-        sourceRevisionDigest: sha256:95ccb501303a94e0fe2b99304e0d0e9c61b9129717ee2797fe5ec227f7146b7c
-        sourceBlobDigest: sha256:9a0b948de9deb225689c964ef989a700dc048279b1deb235283279bd6b75c818
+        sourceRevisionDigest: sha256:f423c7f4200b643386a60df20d1f5abaeffbb743efe59ab27e5c2d11169bd648
+        sourceBlobDigest: sha256:d1dbe0faad05f702e9e4d9bf414af433b75262cfe910b0305299c7912cc00008
         tags:
             - latest
+            - speakeasy-sdk-regen-1759854361
             - 0.0.1
 targets:
     cycas:
         source: Cycas API
         sourceNamespace: cycas-api
-        sourceRevisionDigest: sha256:95ccb501303a94e0fe2b99304e0d0e9c61b9129717ee2797fe5ec227f7146b7c
-        sourceBlobDigest: sha256:9a0b948de9deb225689c964ef989a700dc048279b1deb235283279bd6b75c818
+        sourceRevisionDigest: sha256:f423c7f4200b643386a60df20d1f5abaeffbb743efe59ab27e5c2d11169bd648
+        sourceBlobDigest: sha256:d1dbe0faad05f702e9e4d9bf414af433b75262cfe910b0305299c7912cc00008
         codeSamplesNamespace: cycas-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:55c40afcf407992f289197a4ead2bd4aa8dc3b1e8aaff67f6fbf15ca94696de1
+        codeSamplesRevisionDigest: sha256:de181c9c9000a2319d9a001df09a987f9b3375cc7b755c83f27f83b083f042fb
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

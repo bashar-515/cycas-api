@@ -243,7 +243,7 @@ async function run() {
       console.log(error.headers);
 
       // Depending on the method different errors may be thrown
-      if (error instanceof errors.ErrorT) {
+      if (error instanceof errors.ErrorResponse) {
         console.log(error.data$.error); // string
       }
     }
@@ -257,7 +257,7 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`CycasError`](./src/models/errors/cycaserror.ts): The base class for HTTP error responses.
-  * [`ErrorT`](./src/models/errors/errort.ts): Category with name already exists. Status code `409`.
+  * [`ErrorResponse`](./src/models/errors/errorresponse.ts): Category with name already exists. Status code `409`.
 
 <details><summary>Less common errors (6)</summary>
 

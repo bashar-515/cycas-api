@@ -31,7 +31,7 @@ export function categoriesCreate(
 ): APIPromise<
   Result<
     operations.CreateCategoryResponse,
-    | errors.ErrorT
+    | errors.ErrorResponse
     | CycasError
     | ResponseValidationError
     | ConnectionError
@@ -57,7 +57,7 @@ async function $do(
   [
     Result<
       operations.CreateCategoryResponse,
-      | errors.ErrorT
+      | errors.ErrorResponse
       | CycasError
       | ResponseValidationError
       | ConnectionError
@@ -134,7 +134,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.CreateCategoryResponse,
-    | errors.ErrorT
+    | errors.ErrorResponse
     | CycasError
     | ResponseValidationError
     | ConnectionError
@@ -145,7 +145,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(201, operations.CreateCategoryResponse$inboundSchema),
-    M.jsonErr(409, errors.ErrorT$inboundSchema),
+    M.jsonErr(409, errors.ErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

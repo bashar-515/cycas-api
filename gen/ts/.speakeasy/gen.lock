@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 339155fd-68cf-4907-8135-efe8ceb006d7
 management:
-  docChecksum: 0fb57f3d9b0c85366101781b63964fb7
+  docChecksum: 0a2dcb0184982b6c9d2063288b4198ba
   docVersion: 0.0.1
   speakeasyVersion: 1.635.3
   generationVersion: 2.722.5
-  releaseVersion: 0.1.6
-  configChecksum: 18c779fbcbf4e2fe4970d782b2bc6b6f
+  releaseVersion: 0.1.7
+  configChecksum: ea665ac507c59fa511f9eebf56581cc9
   repoURL: https://github.com/bashar-515/cycas-api.git
   repoSubDirectory: gen/ts
   installationURL: https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
@@ -36,7 +36,7 @@ generatedFiles:
   - RUNTIMES.md
   - USAGE.md
   - docs/lib/utils/retryconfig.md
-  - docs/models/errors/errort.md
+  - docs/models/errors/errorresponse.md
   - docs/models/operations/createcategoryrequest.md
   - docs/models/operations/createcategoryresponse.md
   - docs/sdks/categories/README.md
@@ -71,7 +71,7 @@ generatedFiles:
   - src/lib/url.ts
   - src/models/errors/cycasdefaulterror.ts
   - src/models/errors/cycaserror.ts
-  - src/models/errors/error.ts
+  - src/models/errors/errorresponse.ts
   - src/models/errors/httpclienterrors.ts
   - src/models/errors/index.ts
   - src/models/errors/responsevalidationerror.ts
