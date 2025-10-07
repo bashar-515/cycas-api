@@ -189,7 +189,7 @@ func (response CreateCategory201JSONResponse) VisitCreateCategoryResponse(w http
 	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateCategory409JSONResponse string
+type CreateCategory409JSONResponse ErrorResponse
 
 func (response CreateCategory409JSONResponse) VisitCreateCategoryResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
