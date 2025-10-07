@@ -42,12 +42,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorResponse"
       x-speakeasy-group: categories
       x-speakeasy-name-override: create
 components:
   schemas:
-    Error:
+    ErrorResponse:
       type: object
       required:
         - error

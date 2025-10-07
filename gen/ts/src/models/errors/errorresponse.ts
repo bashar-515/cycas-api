@@ -5,18 +5,18 @@
 import * as z from "zod";
 import { CycasError } from "./cycaserror.js";
 
-export type ErrorTData = {
+export type ErrorResponseData = {
   error: string;
 };
 
-export class ErrorT extends CycasError {
+export class ErrorResponse extends CycasError {
   error: string;
 
   /** The original data that was passed to this error instance. */
-  data$: ErrorTData;
+  data$: ErrorResponseData;
 
   constructor(
-    err: ErrorTData,
+    err: ErrorResponseData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = "message" in err && typeof err.message === "string"
@@ -26,20 +26,23 @@ export class ErrorT extends CycasError {
     this.data$ = err;
     this.error = err.error;
 
-    this.name = "ErrorT";
+    this.name = "ErrorResponse";
   }
 }
 
 /** @internal */
-export const ErrorT$inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, unknown> = z
-  .object({
-    error: z.string(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
+export const ErrorResponse$inboundSchema: z.ZodType<
+  ErrorResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
   .transform((v) => {
-    return new ErrorT(v, {
+    return new ErrorResponse(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
@@ -47,16 +50,16 @@ export const ErrorT$inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, unknown> = z
   });
 
 /** @internal */
-export type ErrorT$Outbound = {
+export type ErrorResponse$Outbound = {
   error: string;
 };
 
 /** @internal */
-export const ErrorT$outboundSchema: z.ZodType<
-  ErrorT$Outbound,
+export const ErrorResponse$outboundSchema: z.ZodType<
+  ErrorResponse$Outbound,
   z.ZodTypeDef,
-  ErrorT
-> = z.instanceof(ErrorT)
+  ErrorResponse
+> = z.instanceof(ErrorResponse)
   .transform(v => v.data$)
   .pipe(z.object({
     error: z.string(),
@@ -66,11 +69,11 @@ export const ErrorT$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ErrorT$ {
-  /** @deprecated use `ErrorT$inboundSchema` instead. */
-  export const inboundSchema = ErrorT$inboundSchema;
-  /** @deprecated use `ErrorT$outboundSchema` instead. */
-  export const outboundSchema = ErrorT$outboundSchema;
-  /** @deprecated use `ErrorT$Outbound` instead. */
-  export type Outbound = ErrorT$Outbound;
+export namespace ErrorResponse$ {
+  /** @deprecated use `ErrorResponse$inboundSchema` instead. */
+  export const inboundSchema = ErrorResponse$inboundSchema;
+  /** @deprecated use `ErrorResponse$outboundSchema` instead. */
+  export const outboundSchema = ErrorResponse$outboundSchema;
+  /** @deprecated use `ErrorResponse$Outbound` instead. */
+  export type Outbound = ErrorResponse$Outbound;
 }

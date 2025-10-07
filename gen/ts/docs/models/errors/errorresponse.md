@@ -1,9 +1,9 @@
-# ErrorT
+# ErrorResponse
 
 ## Example Usage
 
 ```typescript
-import { ErrorT } from "cycas/models/errors";
+import { ErrorResponse } from "cycas/models/errors";
 
 // No examples available for this model
 ```

@@ -72,5 +72,5 @@ run();
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| errors.ErrorT            | 409                      | application/json         |
+| errors.ErrorResponse     | 409                      | application/json         |
 | errors.CycasDefaultError | 4XX, 5XX                 | \*/\*                    |

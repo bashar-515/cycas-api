@@ -4,7 +4,7 @@
 
 export * from "./cycasdefaulterror.js";
 export * from "./cycaserror.js";
-export * from "./error.js";
+export * from "./errorresponse.js";
 export * from "./httpclienterrors.js";
 export * from "./responsevalidationerror.js";
 export * from "./sdkvalidationerror.js";
