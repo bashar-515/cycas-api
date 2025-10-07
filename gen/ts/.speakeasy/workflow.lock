@@ -1,0 +1,37 @@
+speakeasyVersion: 1.635.2
+sources:
+    Cycas API:
+        sourceNamespace: cycas-api
+        sourceRevisionDigest: sha256:fb2b8b79a83e23bc20e2c1e072a212d48d572f09f7fca55b594dd0b9c2846204
+        sourceBlobDigest: sha256:a261df14b28770973ac45d0f5257b74a63d84affaf71d0bf2d6334fe3ce1dd0e
+        tags:
+            - latest
+            - 0.0.1
+targets:
+    cycas:
+        source: Cycas API
+        sourceNamespace: cycas-api
+        sourceRevisionDigest: sha256:fb2b8b79a83e23bc20e2c1e072a212d48d572f09f7fca55b594dd0b9c2846204
+        sourceBlobDigest: sha256:a261df14b28770973ac45d0f5257b74a63d84affaf71d0bf2d6334fe3ce1dd0e
+        codeSamplesNamespace: cycas-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:7fb4d7a377d60c8a02f0ac6d4877e84892b0b533bdd6d445fe57822faf5af0b3
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Cycas API:
+            inputs:
+                - location: ../../spec/openapi.yaml
+            output: .speakeasy/out.openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/bashars-company/cycas-workspace/cycas-api
+    targets:
+        cycas:
+            target: typescript
+            source: Cycas API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/bashars-company/cycas-workspace/cycas-api-typescript-code-samples
+                labelOverride:
+                    fixedValue: Typescript (SDK)
+                blocking: false

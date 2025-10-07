@@ -1,0 +1,19 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    Cycas API:
+        inputs:
+            - location: ../../spec/openapi.yaml
+        output: .speakeasy/out.openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/bashars-company/cycas-workspace/cycas-api
+targets:
+    cycas:
+        target: typescript
+        source: Cycas API
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/bashars-company/cycas-workspace/cycas-api-typescript-code-samples
+            labelOverride:
+                fixedValue: Typescript (SDK)
+            blocking: false

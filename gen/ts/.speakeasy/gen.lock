@@ -1,0 +1,93 @@
+lockVersion: 2.0.0
+id: 339155fd-68cf-4907-8135-efe8ceb006d7
+management:
+  docChecksum: 389fe8676a5173323dcbccca2b397227
+  docVersion: 0.0.1
+  speakeasyVersion: 1.635.2
+  generationVersion: 2.722.5
+  releaseVersion: 0.0.1
+  configChecksum: f8787406d488d4ba05222fb0814a6570
+features:
+  typescript:
+    additionalDependencies: 0.1.0
+    core: 3.21.26
+    defaultEnabledRetries: 0.1.0
+    devContainers: 2.90.1
+    envVarSecurityUsage: 0.1.2
+    globalSecurityCallbacks: 0.1.0
+    globalServerURLs: 2.82.5
+    methodArguments: 0.1.2
+    responseFormat: 0.2.3
+    retries: 2.83.0
+    sdkHooks: 0.3.0
+generatedFiles:
+  - .devcontainer/README.md
+  - .devcontainer/devcontainer.json
+  - .devcontainer/setup.sh
+  - .gitattributes
+  - .npmignore
+  - FUNCTIONS.md
+  - RUNTIMES.md
+  - USAGE.md
+  - docs/lib/utils/retryconfig.md
+  - docs/models/operations/createcategoryrequest.md
+  - docs/models/operations/createcategoryresponse.md
+  - docs/sdks/cycas/README.md
+  - eslint.config.mjs
+  - examples/.env.template
+  - examples/README.md
+  - examples/createCategory.example.ts
+  - examples/package.json
+  - jsr.json
+  - package.json
+  - src/core.ts
+  - src/funcs/createCategory.ts
+  - src/hooks/hooks.ts
+  - src/hooks/index.ts
+  - src/hooks/types.ts
+  - src/index.ts
+  - src/lib/base64.ts
+  - src/lib/config.ts
+  - src/lib/dlv.ts
+  - src/lib/encodings.ts
+  - src/lib/env.ts
+  - src/lib/files.ts
+  - src/lib/http.ts
+  - src/lib/is-plain-object.ts
+  - src/lib/logger.ts
+  - src/lib/matchers.ts
+  - src/lib/primitives.ts
+  - src/lib/retries.ts
+  - src/lib/schemas.ts
+  - src/lib/sdks.ts
+  - src/lib/security.ts
+  - src/lib/url.ts
+  - src/models/errors/cycasdefaulterror.ts
+  - src/models/errors/cycaserror.ts
+  - src/models/errors/httpclienterrors.ts
+  - src/models/errors/index.ts
+  - src/models/errors/responsevalidationerror.ts
+  - src/models/errors/sdkvalidationerror.ts
+  - src/models/operations/createcategory.ts
+  - src/models/operations/index.ts
+  - src/sdk/index.ts
+  - src/sdk/sdk.ts
+  - src/types/async.ts
+  - src/types/blobs.ts
+  - src/types/constdatetime.ts
+  - src/types/enums.ts
+  - src/types/fp.ts
+  - src/types/index.ts
+  - src/types/operations.ts
+  - src/types/rfcdate.ts
+  - src/types/streams.ts
+  - tsconfig.json
+examples:
+  createCategory:
+    speakeasy-default-create-category:
+      requestBody:
+        application/json: {"name": "<value>"}
+      responses:
+        "201":
+          application/json: {"id": "<id>", "name": "<value>"}
+examplesVersion: 1.0.2
