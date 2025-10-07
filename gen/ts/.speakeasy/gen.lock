@@ -5,8 +5,8 @@ management:
   docVersion: 0.0.1
   speakeasyVersion: 1.635.3
   generationVersion: 2.722.5
-  releaseVersion: 0.1.4
-  configChecksum: f946a576f7027437459b1e2041018559
+  releaseVersion: 0.1.6
+  configChecksum: 18c779fbcbf4e2fe4970d782b2bc6b6f
   repoURL: https://github.com/bashar-515/cycas-api.git
   repoSubDirectory: gen/ts
   installationURL: https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
@@ -102,7 +102,3 @@ examples:
         "409":
           application/json: {"error": "<value>"}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `cycas.categories.create()`: **Added**
-  * `cycas.createCategory()`: **Deleted** **Breaking** :warning:

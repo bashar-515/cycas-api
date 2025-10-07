@@ -2,7 +2,7 @@
 
 {
   "name": "cycas",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "exports": {
     ".": "./src/index.ts",    
     "./models/errors": "./src/models/errors/index.ts",    
