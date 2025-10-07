@@ -1,4 +1,4 @@
-speakeasyVersion: 1.635.2
+speakeasyVersion: 1.635.3
 sources:
     Cycas API:
         sourceNamespace: cycas-api
@@ -6,6 +6,7 @@ sources:
         sourceBlobDigest: sha256:a261df14b28770973ac45d0f5257b74a63d84affaf71d0bf2d6334fe3ce1dd0e
         tags:
             - latest
+            - speakeasy-sdk-regen-1759851413
             - 0.0.1
 targets:
     cycas:
@@ -14,7 +15,7 @@ targets:
         sourceRevisionDigest: sha256:fb2b8b79a83e23bc20e2c1e072a212d48d572f09f7fca55b594dd0b9c2846204
         sourceBlobDigest: sha256:a261df14b28770973ac45d0f5257b74a63d84affaf71d0bf2d6334fe3ce1dd0e
         codeSamplesNamespace: cycas-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:7fb4d7a377d60c8a02f0ac6d4877e84892b0b533bdd6d445fe57822faf5af0b3
+        codeSamplesRevisionDigest: sha256:f3a1cdce20e35a74b863823f7950ba0e337aa8a5d84e16ee1640d1a313106902
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

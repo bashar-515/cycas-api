@@ -61,25 +61,25 @@ The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https
 ### NPM
 
 ```bash
-npm add <UNSET>
+npm add https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
 ```
 
 ### PNPM
 
 ```bash
-pnpm add <UNSET>
+pnpm add https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
 ```
 
 ### Bun
 
 ```bash
-bun add <UNSET>
+bun add https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
 ```
 
 ### Yarn
 
 ```bash
-yarn add <UNSET>
+yarn add https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
 ```
 
 > [!NOTE]
