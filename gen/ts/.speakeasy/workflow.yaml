@@ -11,6 +11,9 @@ targets:
     cycas:
         target: typescript
         source: Cycas API
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/bashars-company/cycas-workspace/cycas-api-typescript-code-samples
