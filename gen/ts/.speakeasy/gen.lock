@@ -5,8 +5,8 @@ management:
   docVersion: 0.0.1
   speakeasyVersion: 1.635.3
   generationVersion: 2.722.5
-  releaseVersion: 0.1.7
-  configChecksum: ea665ac507c59fa511f9eebf56581cc9
+  releaseVersion: 0.1.8
+  configChecksum: b160f4889e180edbcbec488e3eea4f41
   repoURL: https://github.com/bashar-515/cycas-api.git
   repoSubDirectory: gen/ts
   installationURL: https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts

@@ -8,7 +8,7 @@ sources:
             - location: .speakeasy/speakeasy-modifications-overlay.yaml
         output: .speakeasy/out.openapi.yaml
         registry:
-            location: registry.speakeasyapi.dev/bashars-company/cycas-workspace/cycas-api
+            location: registry.speakeasyapi.dev/bashr/cycas-workspace/cycas-api
 targets:
     cycas:
         target: typescript
@@ -18,7 +18,7 @@ targets:
                 token: $npm_token
         codeSamples:
             registry:
-                location: registry.speakeasyapi.dev/bashars-company/cycas-workspace/cycas-api-typescript-code-samples
+                location: registry.speakeasyapi.dev/bashr/cycas-workspace/cycas-api-typescript-code-samples
             labelOverride:
                 fixedValue: Typescript (SDK)
             blocking: false
