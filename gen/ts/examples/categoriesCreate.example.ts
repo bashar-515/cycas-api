@@ -8,7 +8,7 @@ dotenv.config();
  * Example usage of the cycas SDK
  *
  * To run this example from the examples directory:
- * npm run build && npx tsx createCategory.example.ts
+ * npm run build && npx tsx categoriesCreate.example.ts
  */
 
 import { Cycas } from "cycas";
@@ -16,7 +16,7 @@ import { Cycas } from "cycas";
 const cycas = new Cycas();
 
 async function main() {
-  const result = await cycas.createCategory({
+  const result = await cycas.categories.create({
     name: "<value>",
   });
 

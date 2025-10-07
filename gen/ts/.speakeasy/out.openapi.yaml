@@ -1,12 +1,9 @@
 openapi: 3.0.3
-
 info:
   title: Cycas API
   version: 0.0.1
-
 servers:
   - url: http://localhost:8000
-
 paths:
   /v1/categories:
     post:
@@ -25,7 +22,6 @@ paths:
                   minLength: 3
                   maxLength: 32
                   pattern: "^[a-z](?:[a-z -]{1,30}[a-z])?$"
-
       responses:
         "201":
           description: Category created
@@ -41,10 +37,20 @@ paths:
                     type: string
                   name:
                     type: string
-
         "409":
           description: Category with name already exists
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/Error"
+      x-speakeasy-group: categories
+      x-speakeasy-name-override: create
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string

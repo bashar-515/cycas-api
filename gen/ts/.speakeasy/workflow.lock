@@ -6,7 +6,6 @@ sources:
         sourceBlobDigest: sha256:a261df14b28770973ac45d0f5257b74a63d84affaf71d0bf2d6334fe3ce1dd0e
         tags:
             - latest
-            - speakeasy-sdk-regen-1759851413
             - 0.0.1
 targets:
     cycas:
@@ -15,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:fb2b8b79a83e23bc20e2c1e072a212d48d572f09f7fca55b594dd0b9c2846204
         sourceBlobDigest: sha256:a261df14b28770973ac45d0f5257b74a63d84affaf71d0bf2d6334fe3ce1dd0e
         codeSamplesNamespace: cycas-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:f3a1cdce20e35a74b863823f7950ba0e337aa8a5d84e16ee1640d1a313106902
+        codeSamplesRevisionDigest: sha256:e487c4400391fcbb6ef88a4e47b054cdf40c1650ec8f75faed85101efdf6b7d4
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -23,6 +22,8 @@ workflow:
         Cycas API:
             inputs:
                 - location: ../../spec/openapi.yaml
+            overlays:
+                - location: .speakeasy/speakeasy-modifications-overlay.yaml
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/bashars-company/cycas-workspace/cycas-api
@@ -30,6 +31,9 @@ workflow:
         cycas:
             target: typescript
             source: Cycas API
+            publish:
+                npm:
+                    token: $npm_token
             codeSamples:
                 registry:
                     location: registry.speakeasyapi.dev/bashars-company/cycas-workspace/cycas-api-typescript-code-samples

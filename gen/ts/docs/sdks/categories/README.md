@@ -1,12 +1,13 @@
-# Cycas SDK
+# Categories
+(*categories*)
 
 ## Overview
 
 ### Available Operations
 
-* [createCategory](#createcategory)
+* [create](#create)
 
-## createCategory
+## create
 
 ### Example Usage
 
@@ -17,7 +18,7 @@ import { Cycas } from "cycas";
 const cycas = new Cycas();
 
 async function run() {
-  const result = await cycas.createCategory({
+  const result = await cycas.categories.create({
     name: "<value>",
   });
 
@@ -33,21 +34,21 @@ The standalone function version of this method:
 
 ```typescript
 import { CycasCore } from "cycas/core.js";
-import { createCategory } from "cycas/funcs/createCategory.js";
+import { categoriesCreate } from "cycas/funcs/categoriesCreate.js";
 
 // Use `CycasCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cycas = new CycasCore();
 
 async function run() {
-  const res = await createCategory(cycas, {
+  const res = await categoriesCreate(cycas, {
     name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("createCategory failed:", res.error);
+    console.log("categoriesCreate failed:", res.error);
   }
 }
 
@@ -71,4 +72,5 @@ run();
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
+| errors.ErrorT            | 409                      | application/json         |
 | errors.CycasDefaultError | 4XX, 5XX                 | \*/\*                    |

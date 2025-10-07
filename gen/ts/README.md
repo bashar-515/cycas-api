@@ -52,34 +52,30 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-> [!TIP]
-> To finish publishing your SDK to npm and others you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
-
-
 The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), [bun](https://bun.sh/) or [yarn](https://classic.yarnpkg.com/en/) package managers.
 
 ### NPM
 
 ```bash
-npm add https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
+npm add cycas
 ```
 
 ### PNPM
 
 ```bash
-pnpm add https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
+pnpm add cycas
 ```
 
 ### Bun
 
 ```bash
-bun add https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
+bun add cycas
 ```
 
 ### Yarn
 
 ```bash
-yarn add https://gitpkg.now.sh/bashar-515/cycas-api/gen/ts
+yarn add cycas
 ```
 
 > [!NOTE]
@@ -103,7 +99,7 @@ import { Cycas } from "cycas";
 const cycas = new Cycas();
 
 async function run() {
-  const result = await cycas.createCategory({
+  const result = await cycas.categories.create({
     name: "<value>",
   });
 
@@ -121,9 +117,9 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [Cycas SDK](docs/sdks/cycas/README.md)
+### [categories](docs/sdks/categories/README.md)
 
-* [createCategory](docs/sdks/cycas/README.md#createcategory)
+* [create](docs/sdks/categories/README.md#create)
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -143,7 +139,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`createCategory`](docs/sdks/cycas/README.md#createcategory)
+- [`categoriesCreate`](docs/sdks/categories/README.md#create)
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -160,7 +156,7 @@ import { Cycas } from "cycas";
 const cycas = new Cycas();
 
 async function run() {
-  const result = await cycas.createCategory({
+  const result = await cycas.categories.create({
     name: "<value>",
   }, {
     retries: {
@@ -200,7 +196,7 @@ const cycas = new Cycas({
 });
 
 async function run() {
-  const result = await cycas.createCategory({
+  const result = await cycas.categories.create({
     name: "<value>",
   });
 
@@ -217,13 +213,14 @@ run();
 
 [`CycasError`](./src/models/errors/cycaserror.ts) is the base class for all HTTP error responses. It has the following properties:
 
-| Property            | Type       | Description                                            |
-| ------------------- | ---------- | ------------------------------------------------------ |
-| `error.message`     | `string`   | Error message                                          |
-| `error.statusCode`  | `number`   | HTTP response status code eg `404`                     |
-| `error.headers`     | `Headers`  | HTTP response headers                                  |
-| `error.body`        | `string`   | HTTP body. Can be empty string if no body is returned. |
-| `error.rawResponse` | `Response` | Raw HTTP response                                      |
+| Property            | Type       | Description                                                                             |
+| ------------------- | ---------- | --------------------------------------------------------------------------------------- |
+| `error.message`     | `string`   | Error message                                                                           |
+| `error.statusCode`  | `number`   | HTTP response status code eg `404`                                                      |
+| `error.headers`     | `Headers`  | HTTP response headers                                                                   |
+| `error.body`        | `string`   | HTTP body. Can be empty string if no body is returned.                                  |
+| `error.rawResponse` | `Response` | Raw HTTP response                                                                       |
+| `error.data$`       |            | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
 
 ### Example
 ```typescript
@@ -234,17 +231,23 @@ const cycas = new Cycas();
 
 async function run() {
   try {
-    const result = await cycas.createCategory({
+    const result = await cycas.categories.create({
       name: "<value>",
     });
 
     console.log(result);
   } catch (error) {
+    // The base class for HTTP error responses
     if (error instanceof errors.CycasError) {
       console.log(error.message);
       console.log(error.statusCode);
       console.log(error.body);
       console.log(error.headers);
+
+      // Depending on the method different errors may be thrown
+      if (error instanceof errors.ErrorT) {
+        console.log(error.data$.error); // string
+      }
     }
   }
 }
@@ -254,8 +257,9 @@ run();
 ```
 
 ### Error Classes
-**Primary error:**
+**Primary errors:**
 * [`CycasError`](./src/models/errors/cycaserror.ts): The base class for HTTP error responses.
+  * [`ErrorT`](./src/models/errors/errort.ts): Category with name already exists. Status code `409`.
 
 <details><summary>Less common errors (6)</summary>
 
@@ -289,7 +293,7 @@ const cycas = new Cycas({
 });
 
 async function run() {
-  const result = await cycas.createCategory({
+  const result = await cycas.categories.create({
     name: "<value>",
   });
 

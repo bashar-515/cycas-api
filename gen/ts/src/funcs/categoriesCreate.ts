@@ -17,19 +17,21 @@ import {
   RequestTimeoutError,
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
-export function createCategory(
+export function categoriesCreate(
   client: CycasCore,
   request: operations.CreateCategoryRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
     operations.CreateCategoryResponse,
+    | errors.ErrorT
     | CycasError
     | ResponseValidationError
     | ConnectionError
@@ -55,6 +57,7 @@ async function $do(
   [
     Result<
       operations.CreateCategoryResponse,
+      | errors.ErrorT
       | CycasError
       | ResponseValidationError
       | ConnectionError
@@ -125,8 +128,13 @@ async function $do(
   }
   const response = doResult.value;
 
+  const responseFields = {
+    HttpMeta: { Response: response, Request: req },
+  };
+
   const [result] = await M.match<
     operations.CreateCategoryResponse,
+    | errors.ErrorT
     | CycasError
     | ResponseValidationError
     | ConnectionError
@@ -137,9 +145,10 @@ async function $do(
     | SDKValidationError
   >(
     M.json(201, operations.CreateCategoryResponse$inboundSchema),
-    M.fail([409, "4XX"]),
+    M.jsonErr(409, errors.ErrorT$inboundSchema),
+    M.fail("4XX"),
     M.fail("5XX"),
-  )(response, req);
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

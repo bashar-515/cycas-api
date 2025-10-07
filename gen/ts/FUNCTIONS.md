@@ -20,21 +20,21 @@ specific category of applications.
 
 ```typescript
 import { CycasCore } from "cycas/core.js";
-import { createCategory } from "cycas/funcs/createCategory.js";
+import { categoriesCreate } from "cycas/funcs/categoriesCreate.js";
 
 // Use `CycasCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cycas = new CycasCore();
 
 async function run() {
-  const res = await createCategory(cycas, {
+  const res = await categoriesCreate(cycas, {
     name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("createCategory failed:", res.error);
+    console.log("categoriesCreate failed:", res.error);
   }
 }
 

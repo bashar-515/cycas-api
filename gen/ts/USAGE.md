@@ -5,7 +5,7 @@ import { Cycas } from "cycas";
 const cycas = new Cycas();
 
 async function run() {
-  const result = await cycas.createCategory({
+  const result = await cycas.categories.create({
     name: "<value>",
   });
 
