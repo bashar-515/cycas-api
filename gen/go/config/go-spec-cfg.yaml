@@ -1,4 +1,4 @@
 package: api
 generate:
   embedded-spec: true
-output: gen/go/api/spec.go
+output: ../../../gen/go/api/spec.go
